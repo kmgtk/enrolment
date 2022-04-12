@@ -2,6 +2,7 @@ package enrolment.Repository;
 
 import enrolment.domain.Classes;
 import enrolment.domain.User;
+import enrolment.dto.userUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,6 +29,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 
     Optional<User> findByloginId(String loginId);
+
+    @Query("select u from User u join fetch u.major")
+    User  findUserInfoByloginId(String loginId);
 
 
 

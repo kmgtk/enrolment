@@ -7,6 +7,7 @@ import enrolment.domain.Major;
 import enrolment.domain.TakeClass;
 import enrolment.domain.User;
 import enrolment.dto.signUpDto;
+import enrolment.dto.userUpdateRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -67,4 +68,25 @@ public class UserController {
 
         return "myCourseList";
     }
+
+    @GetMapping("/edit")
+    public String myInfoEdit(Model model, @AuthenticationPrincipal User user){
+
+
+        userUpdateRequestDto userUpdateRequestDto = userService.getUserInfo( user.getLoginId());
+
+        model.addAttribute("userUpdateRequestDto",userUpdateRequestDto);
+
+        return "edit";
+    }
+
+    @PostMapping("/edit")
+    public String updateMyInfo(userUpdateRequestDto requestDto){
+
+        userService.updateUserInfo(requestDto);
+
+        return "redirect:/home";
+
+    }
+
 }

@@ -3,6 +3,7 @@ package enrolment.Repository;
 import enrolment.domain.Course;
 import enrolment.domain.Major;
 import enrolment.domain.User;
+import enrolment.dto.userUpdateRequestDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,19 +43,11 @@ public class MajorRepositoryTest {
                 System.out.println(cours.getCourseName());
             }
         }
+    }
 
-
-/*        List<Major> majors = majorRepository.findAll();
-        for (Major major : majors) {
-            System.out.println(major.getMajorName());
-        }
-*/
-
-/*
-        User user = new
-        user.setUserName("aaa");
-    userRepository.save(user);
-*/
+    @Test
+    public void joinFetch_Test(){
+        User user1 =  userRepository.findUserInfoByloginId("aa");
 
     }
 }

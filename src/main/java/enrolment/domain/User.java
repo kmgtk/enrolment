@@ -19,7 +19,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class User implements UserDetails {
+public class User extends EntityTimeBase implements UserDetails {
 
     @Id @GeneratedValue
     @Column(name = "user_id")
@@ -52,6 +52,14 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
         this.role = Role.STUDENT.getValue();
         this.takeClasses = new ArrayList<>();
+    }
+
+    public void updateEmailInfo(String email){
+        this.email = email;
+    }
+
+    public void updatePhoneNumberInfo(String phoneNumber){
+        this.phoneNumber = phoneNumber;
     }
 
 

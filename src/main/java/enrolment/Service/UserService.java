@@ -5,6 +5,7 @@ import enrolment.Repository.UserRepository;
 import enrolment.domain.TakeClass;
 import enrolment.domain.User;
 import enrolment.dto.signUpDto;
+import enrolment.dto.userUpdateRequestDto;
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -58,6 +59,32 @@ public class UserService {
         List<TakeClass> takeClasses = userRepository.findOneById(userId).getTakeClasses();
 
         return takeClasses;
+
+    }
+
+    public userUpdateRequestDto getUserInfo(String longinId){
+
+        User userInfo = userRepository.findUserInfoByloginId(longinId);
+        userUpdateRequestDto userUpdateRequestDto =
+                enrolment.dto.userUpdateRequestDto.builder().userName(userInfo.getUsername())
+                                                            .loginId(userInfo.getLoginId())
+                .email(userInfo.getEmail())
+                .phoneNumber(userInfo.getPhoneNumber())
+                .majorName(userInfo.getMajor().getMajorName()).build();
+
+        return userUpdateRequestDto;
+
+    }
+
+    @Transactional
+    public Long updateUserInfo(userUpdateRequestDto userUpdateRequestDto){
+
+       User user =  userRepository.findOneByloginId(userUpdateRequestDto.getLoginId());
+
+       user.updateEmailInfo(userUpdateRequestDto.getEmail());
+       user.updatePhoneNumberInfo(userUpdateRequestDto.getPhoneNumber());
+
+       return user.getId();
 
     }
 
